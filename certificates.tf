@@ -35,6 +35,8 @@ resource "google_compute_managed_ssl_certificate" "web-top-domain" {
 }
 
 resource "google_compute_managed_ssl_certificate" "storage" {
+  count = var.enable_storage ? 1 : 0
+
   name = "serverpod-${var.runmode}-storage-certificate"
 
   managed {

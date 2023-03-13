@@ -49,17 +49,21 @@ resource "google_compute_target_https_proxy" "web" {
 # Storage.
 
 resource "google_compute_global_forwarding_rule" "storage" {
+  count = var.enable_storage ? 1 : 0
+
   name                  = "serverpod-${var.runmode}-storage"
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
-  target                = google_compute_target_https_proxy.storage.self_link
+  target                = google_compute_target_https_proxy.storage[0].self_link
 }
 
 resource "google_compute_target_https_proxy" "storage" {
+  count = var.enable_storage ? 1 : 0
+
   name             = "serverpod-${var.runmode}-proxy-storage"
   url_map          = google_compute_url_map.serverpod.id
-  ssl_certificates = [google_compute_managed_ssl_certificate.storage.id]
+  ssl_certificates = [google_compute_managed_ssl_certificate.storage[0].id]
 }
 
 # Load balancer.
@@ -88,14 +92,24 @@ resource "google_compute_url_map" "serverpod" {
     default_service = google_compute_backend_service.insights.id
   }
 
-  host_rule {
-    hosts        = ["${var.subdomain_prefix}storage.${var.top_domain}"]
-    path_matcher = "storage"
+  dynamic "host_rule" {
+    for_each = var.enable_storage ? [1] : []
+
+    content {
+      hosts        = ["${var.subdomain_prefix}storage.${var.top_domain}"]
+      path_matcher = "storage"
+    }
+
+
   }
 
-  path_matcher {
-    name            = "storage"
-    default_service = google_compute_backend_bucket.storage.id
+  dynamic "path_matcher" {
+    for_each = var.enable_storage ? [1] : []
+
+    content {
+      name            = "storage"
+      default_service = google_compute_backend_bucket.storage[0].id
+    }
   }
 }
 
@@ -151,8 +165,10 @@ resource "google_compute_backend_service" "web" {
 }
 
 resource "google_compute_backend_bucket" "storage" {
+  count = var.enable_storage ? 1 : 0
+
   name        = "serverpod-${var.runmode}-backend-storage"
-  bucket_name = google_storage_bucket.public.name
+  bucket_name = google_storage_bucket.public[0].name
   enable_cdn  = false
 }
 

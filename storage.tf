@@ -1,6 +1,8 @@
 # Storage bucket for public files.
 
 resource "google_storage_bucket" "public" {
+  count = var.enable_storage ? 1 : 0
+
   name                        = "${var.subdomain_prefix}storage.${var.top_domain}"
   location                    = var.storage_bucket_location
   storage_class               = var.storage_bucket_class
@@ -17,7 +19,9 @@ resource "google_storage_bucket" "public" {
 }
 
 resource "google_storage_bucket_access_control" "public" {
-  bucket = google_storage_bucket.public.id
+  count = var.enable_storage ? 1 : 0
+
+  bucket = google_storage_bucket.public[0].id
   role   = "READER"
   entity = "allUsers"
 }
@@ -25,6 +29,8 @@ resource "google_storage_bucket_access_control" "public" {
 # Storage bucket for private files.
 
 resource "google_storage_bucket" "private" {
+  count = var.enable_storage ? 1 : 0
+
   name                        = "${var.subdomain_prefix}private-storage.${var.top_domain}"
   location                    = var.storage_bucket_location
   storage_class               = var.storage_bucket_class

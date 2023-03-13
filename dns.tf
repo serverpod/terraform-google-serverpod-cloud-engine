@@ -74,11 +74,13 @@ resource "google_dns_record_set" "web-top-domain" {
 }
 
 resource "google_dns_record_set" "storage" {
+  count = var.enable_storage ? 1 : 0
+
   name         = "${var.subdomain_prefix}storage.${var.top_domain}."
   managed_zone = var.dns_managed_zone == "" ? "serverpod-${var.runmode}-public" : var.dns_managed_zone
   type         = "A"
   ttl          = 60
-  rrdatas      = [google_compute_global_forwarding_rule.storage.ip_address]
+  rrdatas      = [google_compute_global_forwarding_rule.storage[0].ip_address]
 }
 
 resource "google_dns_record_set" "database" {
