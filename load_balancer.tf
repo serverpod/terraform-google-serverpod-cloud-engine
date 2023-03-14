@@ -21,7 +21,7 @@ resource "google_compute_global_forwarding_rule" "insights" {
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
-  target                = google_compute_target_https_proxy.api.self_link
+  target                = google_compute_target_https_proxy.insights.self_link
 }
 
 resource "google_compute_target_https_proxy" "insights" {
@@ -37,7 +37,7 @@ resource "google_compute_global_forwarding_rule" "web" {
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
-  target                = google_compute_target_https_proxy.api.self_link
+  target                = google_compute_target_https_proxy.web.self_link
 }
 
 resource "google_compute_target_https_proxy" "web" {
