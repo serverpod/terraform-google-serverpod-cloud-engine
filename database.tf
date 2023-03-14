@@ -21,6 +21,8 @@ resource "google_sql_database_instance" "serverpod" {
   }
 
   deletion_protection = var.database_deletion_protection
+
+  depends_on = [google_service_networking_connection.private-vpc-connection]
 }
 
 resource "google_sql_database" "serverpod" {
