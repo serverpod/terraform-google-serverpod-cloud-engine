@@ -18,12 +18,14 @@ resource "google_storage_bucket" "public" {
   }
 }
 
-resource "google_storage_bucket_access_control" "public" {
+# Allow access to the public bucket.
+
+resource "google_storage_bucket_iam_member" "public" {
   count = var.enable_storage ? 1 : 0
 
-  bucket = google_storage_bucket.public[0].id
-  role   = "READER"
-  entity = "allUsers"
+  bucket = google_storage_bucket.public[0].name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
 }
 
 # Storage bucket for private files.
