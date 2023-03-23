@@ -24,7 +24,7 @@ resource "google_storage_bucket_iam_member" "public" {
   count = var.enable_storage ? 1 : 0
 
   bucket = google_storage_bucket.public[0].name
-  role   = "roles/storage.objectViewer"
+  role   = "roles/storage.legacyObjectReader"
   member = "allUsers"
 }
 
