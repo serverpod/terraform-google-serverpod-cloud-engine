@@ -3,7 +3,7 @@
 resource "google_storage_bucket" "public" {
   count = var.enable_storage ? 1 : 0
 
-  name                        = "test-${var.subdomain_prefix}storage.${var.top_domain}"
+  name                        = "${var.subdomain_prefix}storage.${var.top_domain}"
   location                    = var.storage_bucket_location
   storage_class               = var.storage_bucket_class
   uniform_bucket_level_access = false
@@ -33,7 +33,7 @@ resource "google_storage_bucket_iam_member" "public" {
 resource "google_storage_bucket" "private" {
   count = var.enable_storage ? 1 : 0
 
-  name                        = "test-${var.subdomain_prefix}private-storage.${var.top_domain}"
+  name                        = "${var.subdomain_prefix}private-storage.${var.top_domain}"
   location                    = var.storage_bucket_location
   storage_class               = var.storage_bucket_class
   uniform_bucket_level_access = false
