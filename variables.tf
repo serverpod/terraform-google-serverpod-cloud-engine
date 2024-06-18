@@ -66,6 +66,12 @@ variable "database_version" {
   default     = "POSTGRES_16"
 }
 
+variable "redis_version" {
+  description = "The version of Redis to use. Defaults to 'REDIS_7_2'."
+  type        = string
+  default     = "REDIS_7_2"
+}
+
 variable "database_tier" {
   description = "The tier of the database to use. Defaults to 'db-f1-micro'."
   type        = string
