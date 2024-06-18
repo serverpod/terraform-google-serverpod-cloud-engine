@@ -87,7 +87,7 @@ No modules.
 | <a name="input_database_deletion_protection"></a> [database\_deletion\_protection](#input\_database\_deletion\_protection) | Whether to enable deletion protection for the database. Defaults to true. | `bool` | `true` | no |
 | <a name="input_database_password"></a> [database\_password](#input\_database\_password) | The password to use for the database. You can find the password in your 'config/passwords.yaml' file. | `string` | n/a | yes |
 | <a name="input_database_tier"></a> [database\_tier](#input\_database\_tier) | The tier of the database to use. Defaults to 'db-f1-micro'. | `string` | `"db-f1-micro"` | no |
-| <a name="input_database_version"></a> [database\_version](#input\_database\_version) | The version of the database to use. Defaults to 'POSTGRES\_14'. Note that only PostgreSQL is supported. | `string` | `"POSTGRES_14"` | no |
+| <a name="input_database_version"></a> [database\_version](#input\_database\_version) | The version of the database to use. Defaults to 'POSTGRES\_16'. Note that only PostgreSQL is supported. | `string` | `"POSTGRES_16"` | no |
 | <a name="input_redis_version"></a> [redis\_version](#input\_redis\_version) | The version of Redis to use. Defaults to 'REDIS_7_2'. | `string` | `"REDIS_7_2"` | no |
 | <a name="input_dns_managed_zone"></a> [dns\_managed\_zone](#input\_dns\_managed\_zone) | The name of the DNS managed zone to use for the Serverpod infrastructure. If this is not set, a new managed zone will be created. | `string` | `""` | no |
 | <a name="input_enable_redis"></a> [enable\_redis](#input\_enable\_redis) | Whether to enable Redis. Defaults to false. | `bool` | `false` | no |

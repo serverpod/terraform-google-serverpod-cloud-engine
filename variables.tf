@@ -61,9 +61,9 @@ variable "enable_ssh" {
 }
 
 variable "database_version" {
-  description = "The version of the database to use. Defaults to 'POSTGRES_14'. Note that only PostgreSQL is supported."
+  description = "The version of the database to use. Defaults to 'POSTGRES_16'. Note that only PostgreSQL is supported."
   type        = string
-  default     = "POSTGRES_14"
+  default     = "POSTGRES_16"
 }
 
 variable "redis_version" {
