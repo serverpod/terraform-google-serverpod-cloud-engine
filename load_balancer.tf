@@ -129,6 +129,9 @@ resource "google_compute_backend_service" "api" {
   health_checks = [google_compute_health_check.serverpod-balancer.id]
 
   port_name = "api"
+
+  # Connection timeout (which is also used as the websocket timeout)
+  timeout_sec = 86400
 }
 
 resource "google_compute_backend_service" "insights" {
