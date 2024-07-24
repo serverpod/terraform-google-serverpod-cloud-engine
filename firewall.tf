@@ -11,7 +11,10 @@ resource "google_compute_firewall" "serverpod-instance" {
     ports    = ["8080-8082"]
   }
 
-  target_tags = ["serverpod-${var.runmode}-instance"]
+  target_tags = [
+    "serverpod-${var.runmode}-instance",
+    "allow-health-check"
+  ]
 }
 
 resource "google_compute_firewall" "serverpod-instance-ssh" {
@@ -27,5 +30,8 @@ resource "google_compute_firewall" "serverpod-instance-ssh" {
     ports    = ["22"]
   }
 
-  target_tags = ["serverpod-${var.runmode}-instance-ssh"]
+  target_tags = [
+    "serverpod-${var.runmode}-instance-ssh",
+    "allow-health-check"
+  ]
 }
