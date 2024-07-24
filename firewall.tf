@@ -20,7 +20,7 @@ resource "google_compute_firewall" "serverpod-instance-ssh" {
   name = "serverpod-${var.runmode}-instance-ssh"
 
   network       = google_compute_network.serverpod.name
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["0.0.0.0/0", "35.235.240.0/20"]
 
   allow {
     protocol = "tcp"
