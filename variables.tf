@@ -26,6 +26,15 @@ variable "top_domain" {
   type        = string
 }
 
+variable "authorized_networks" {
+  description = "The networks authorized to connect to the database from outside the Serverpod infrastructure."
+  type        = object({
+    name      = string
+    value     = string
+  })
+  default     = null
+}
+
 variable "autoscaling_min_size" {
   description = "The minimum number of instances to run in the autoscaling group. Defaults to 1."
   default     = 1
