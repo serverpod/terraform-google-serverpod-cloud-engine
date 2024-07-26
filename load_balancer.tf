@@ -151,6 +151,15 @@ resource "google_compute_backend_service" "web" {
   name       = "serverpod-${var.runmode}-backend-web"
   protocol   = "HTTP"
   enable_cdn = true
+  cdn_policy {
+    cache_mode = "USE_ORIGIN_HEADERS"
+    cache_key_policy {
+      include_host = true
+      include_protocol = true
+      include_query_string = true
+      include_http_headers = ["Cache-Control"]
+    }
+  }
 
   backend {
     group           = google_compute_instance_group_manager.serverpod.instance_group
