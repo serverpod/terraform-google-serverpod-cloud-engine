@@ -2,7 +2,7 @@
 
 resource "google_compute_global_forwarding_rule" "api" {
   name                  = "serverpod-${var.runmode}-api"
-  ip_protocol           = "TCP"
+  ip_protocol           = "HTTP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
   target                = google_compute_target_https_proxy.api.self_link
@@ -18,7 +18,7 @@ resource "google_compute_target_https_proxy" "api" {
 
 resource "google_compute_global_forwarding_rule" "insights" {
   name                  = "serverpod-${var.runmode}-insights"
-  ip_protocol           = "TCP"
+  ip_protocol           = "HTTP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
   target                = google_compute_target_https_proxy.insights.self_link
@@ -34,7 +34,7 @@ resource "google_compute_target_https_proxy" "insights" {
 
 resource "google_compute_global_forwarding_rule" "web" {
   name                  = "serverpod-${var.runmode}-web"
-  ip_protocol           = "TCP"
+  ip_protocol           = "HTTP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
   target                = google_compute_target_https_proxy.web.self_link
@@ -52,7 +52,7 @@ resource "google_compute_global_forwarding_rule" "storage" {
   count = var.enable_storage ? 1 : 0
 
   name                  = "serverpod-${var.runmode}-storage"
-  ip_protocol           = "TCP"
+  ip_protocol           = "HTTP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "443"
   target                = google_compute_target_https_proxy.storage[0].self_link
@@ -177,7 +177,7 @@ resource "google_compute_health_check" "serverpod-balancer" {
   timeout_sec        = 5
   check_interval_sec = 5
 
-  tcp_health_check {
+  http_health_check {
     port = "8080"
   }
 }

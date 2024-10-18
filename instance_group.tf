@@ -89,7 +89,7 @@ resource "google_compute_health_check" "serverpod-instance-group" {
   healthy_threshold   = 2
   unhealthy_threshold = 3
 
-  tcp_health_check {
+  http_health_check {
     port = "8080"
   }
 }
